@@ -31,7 +31,7 @@ The resulting folder can be transferred via FTP to a webhost. Since files that a
 
 ## Deployment Steps
 ### 1. Prepare files
-ssgallery expects a folder structure like the following. It is recommended that all images (including thumbnail.jpg) be at the largest resolution you would like available for users to download. They will be resized depending on the provided command line arguments.
+ssgallery expects a folder structure like the following. It is recommended that all images (including thumbnail.jpg) be at the largest resolution you would like available for users to download. They will be resized for thumbnails and the image viewer depending on the provided command line arguments, and the original file will be available under the View/Download link on the Image page.
 
 - pictures
   - gallery1
