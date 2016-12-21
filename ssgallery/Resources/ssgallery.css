@@ -868,7 +868,7 @@ ul.thumbnails,
 .js #theImageAndTitle,
 .js #theImg,
 .js #imageTitleContainer {
-    opacity: 0;
+    opacity: 1;
     filter: alpha(opacity=0)
 }
 
@@ -907,19 +907,22 @@ ul.thumbnails,
 }
 
 .img_prev {
-    background: transparent url(icon/none.png) no-repeat left center
+    background: transparent url(../icon/none.png) no-repeat left center;
+    margin-left: 25px;
 }
 
 .img_prev:hover {
-    background: transparent url(icon/img_prev.png) no-repeat left center
+    background: transparent url(../icon/img_prev.png) no-repeat left center
 }
 
 .img_next {
-    background: transparent url(icon/none.png) no-repeat right center
+    background: transparent url(../icon/none.png) no-repeat right center;
+    right: 6px;
+    margin-right: 25px;
 }
 
 .img_next:hover {
-    background: transparent url(icon/img_next.png) no-repeat right center
+    background: transparent url(../icon/img_next.png) no-repeat right center
 }
 
 .hd_link {
@@ -2147,38 +2150,12 @@ hr {
     padding: 8px;
 }
 
-.img_prev {
-    left: 6px
-}
-
-.img_next {
-    right: 6px
-}
-
 .cat_up {
     top: 6px
 }
 
 #theImageBox {
     position: relative
-}
-
-#imgprev {
-    position: fixed;
-    background: transparent url(icon/arrows-white.png) 0 0 no-repeat
-}
-
-#imgnext {
-    position: fixed;
-    background: transparent url(icon/arrows-white.png) -20px 0 no-repeat
-}
-
-#imgprev:hover {
-    background: transparent url(icon/arrows-white.png) 0 -150px no-repeat
-}
-
-#imgnext:hover {
-    background: transparent url(icon/arrows-white.png) -20px -150px no-repeat
 }
 
 #theImgHighContainer {

@@ -16,35 +16,46 @@
 
 	<script type="text/javascript">
 	// configuration options
-	var options = { 
-		imageAutosize:true,
-		imageAutosizeMargin:60,
-		imageAutosizeMinHeight:200,
-		themeStyle:"white",
-		animatedTabs:true,
-		defaultTab:"none",
-		marginContainer:30,
-		paddingContainer:10,
-		defaultZoomSize:"full",
-		highResClickMode:"zoom",
-		navArrows:true 
+	    var options = { 
+	        imageAutosize:true,
+	        imageAutosizeMargin:60,
+	        imageAutosizeMinHeight:200,
+	        themeStyle:"white",
+	        animatedTabs:true,
+	        defaultTab:"none",
+	        marginContainer:30,
+	        paddingContainer:10,
+	        defaultZoomSize:"full",
+	        highResClickMode:"zoom",
+	        navArrows:true 
 
-	}
+	    }
 	</script>
 
 	<script type="text/javascript">
-		document.documentElement.className = 'js';
+	    document.documentElement.className = 'js';
 	</script>
 
-	<script type="text/javascript" src="../js/3r5d4l.js"></script>
+    <script type="text/javascript" src="../js/3r5d4l.js"></script>
+    <script type="text/javascript">
+        function processingRoutine() {
+            var swipedElement = document.getElementById(triggerElementID);
+            if ( swipeDirection == 'left' ) {
+                window.location.href = "%SSG_NEXT_IMAGE_PAGE_URL%";
+            } else if (swipeDirection == 'right') {
+                window.location.href = "%SSG_PREV_IMAGE_PAGE_URL%";
+            }
+        }
+    </script>
+    <script type="text/javascript" src="../js/touchevents.js"></script>
 </head>
 
 <body id="thePicturePage" class="  ntf   ats    ">
 	<div id="the_page">
 
 			<script type="text/javascript">
-				var image_w = %SSG_IMAGE_WIDTH%
-				var image_h = %SSG_IMAGE_HEIGHT%
+			    var image_w = %SSG_IMAGE_WIDTH%
+			        var image_h = %SSG_IMAGE_HEIGHT%
 			</script>
 
 			<div class="titrePage" id="imageHeaderBar">
@@ -54,17 +65,18 @@
 			</div>
 
 			<div id="content">
-			    <div id="theImageAndTitle">
+			    <div id="theImageAndTitle" ontouchstart="touchStart(event, 'theImageAndTitle');" ontouchend="touchEnd(event);" ontouchmove="touchMove(event);" ontouchcancel="touchCancel(event);">
 			        <div id="theImageBox" >
-			            <a href="%SSG_PREV_IMAGE_PAGE_URL%" id="prevLink"><img src="../icon/img_prev.png"></a>
+			            <div id="theImage">
 
-			            <div id="theImg" class="img_frame">
-			                <a href="%SSG_NEXT_IMAGE_PAGE_URL%">
-			                    <img src="%SSG_IMAGE_URL%" width="%SSG_IMAGE_WIDTH%" height="%SSG_IMAGE_HEIGHT%" alt="%SSG_IMAGE_NAME%" id="theMainImage" class="hideTabs">
-                            </a>	
-			            </div>
-
-			            <a href="%SSG_NEXT_IMAGE_PAGE_URL%" id="nextLink"><img src="../icon/img_next.png"></a>
+			                <div id="theImg" class="img_frame">
+			                    <a href="%SSG_PREV_IMAGE_PAGE_URL%" class="img_nav img_prev">&nbsp;</a>
+			                    <a href="%SSG_NEXT_IMAGE_PAGE_URL%" class="img_nav img_next">&nbsp;</a>
+			                    <a href="%SSG_NEXT_IMAGE_PAGE_URL%">
+			                        <img src="%SSG_IMAGE_URL%" width="%SSG_IMAGE_WIDTH%" height="%SSG_IMAGE_HEIGHT%" alt="%SSG_IMAGE_NAME%" id="theMainImage" class="hideTabs">
+			                    </a>	
+			                </div>
+                        </div>
 			        </div>
 			        <div id="imageTitleContainer">
 			            <div id="imageTitle">
