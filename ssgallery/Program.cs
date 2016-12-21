@@ -166,9 +166,9 @@ namespace ssgallery
             var albumTemplateRaw = File.ReadAllText(@"templates\album.html");
             var imageTemplateRaw = File.ReadAllText(@"templates\image.html");
 
-            Template galleryTemplate = new Template() { RawHtml = galleryTemplateRaw };
+            var galleryTemplate = new Template() { RawHtml = galleryTemplateRaw };
 
-            Dictionary<string, string> GalleryValues = new Dictionary<string, string>()
+            var galleryValues = new Dictionary<string, string>()
             {
                 {"SSG_GALLERY_NAME", mGallery.Name},
                 {"SSG_HOME_URL", mOptions.BaseUrl},
@@ -176,19 +176,24 @@ namespace ssgallery
                 {"SSG_DISQUS_URL", mOptions.Disqus}
             };
 
-            galleryTemplate.AddValues(GalleryValues);
+            galleryTemplate.AddValues(galleryValues);
 
             foreach (var album in mGallery.Albums)
             {
-                Dictionary<string, string> AlbumValues = new Dictionary<string, string>()
+                var albumThumbnail = Path.Combine(mOptions.Target, album.Name, "thumbnail.jpg");
+                var albumThumbImage = new MagickImage(albumThumbnail);
+
+                var AlbumValues = new Dictionary<string, string>()
                 {
                     { "SSG_ALBUM_NAME", album.Name },
-                    { "SSG_ALBUM_URL", mOptions.BaseUrl + album.Name + "/"}
+                    { "SSG_ALBUM_URL", mOptions.BaseUrl + album.Name + "/"},
+                    { "SSG_ALBUM_THUMBNAIL_WIDTH", albumThumbImage.Width.ToString()},
+                    { "SSG_ALBUM_THUMBNAIL_HEIGHT", albumThumbImage.Height.ToString()}
                 };
 
-                Template albumTemplate = new Template() { RawHtml = albumTemplateRaw };
+                var albumTemplate = new Template() { RawHtml = albumTemplateRaw };
 
-                albumTemplate.AddValues(GalleryValues);
+                albumTemplate.AddValues(galleryValues);
                 albumTemplate.AddValues(AlbumValues);
 
                 galleryTemplate.Items.Add(new TemplateItem()
@@ -214,7 +219,10 @@ namespace ssgallery
                         picToPreload = CacheFolder + "/" + FormatFilename(nextImage.Name, mOptions.MaxViewerWidth, mOptions.MaxViewerHeight);
                     }
 
-                    Dictionary<string, string> ImageValues = new Dictionary<string, string>()
+                    var imageThumbnail = Path.Combine(mOptions.Target, album.Name, "thumbnail.jpg");
+                    var imageThumbImage = new MagickImage(imageThumbnail);
+
+                    var ImageValues = new Dictionary<string, string>()
                     {
                         {"SSG_IMAGE_NAME", image.Name},
                         {"SSG_PREV_IMAGE_PAGE_URL", prevPage},
@@ -226,15 +234,17 @@ namespace ssgallery
                         {"SSG_IMAGE_PAGE_URL", string.Format("{0}.html", image.Name)},
                         {"SSG_IMAGE_ID", string.Format("{0}-{1}-{2}", mGallery.Name, album.Name, image.Name)},
                         {"SSG_IMAGE_THUMBNAIL_URL", CacheFolder + "/" + FormatFilename(image.Name, mOptions.MaxThumbnailWidth, mOptions.MaxThumbnailHeight)},
-                        {"SSG_ORIG_IMAGE_URL", Path.GetFileName(image.Path)}
+                        {"SSG_ORIG_IMAGE_URL", Path.GetFileName(image.Path)},
+                        {"SSG_IMAGE_THUMBNAIL_WIDTH", imageThumbImage.Width.ToString()},
+                        {"SSG_IMAGE_THUMBNAIL_HEIGHT", imageThumbImage.Height.ToString()}
                     };
 
-                    Template imageTemplate = new Template()
+                    var imageTemplate = new Template()
                     {
                         RawHtml = imageTemplateRaw
                     };
 
-                    imageTemplate.AddValues(GalleryValues);
+                    imageTemplate.AddValues(galleryValues);
                     imageTemplate.AddValues(AlbumValues);
                     imageTemplate.AddValues(ImageValues);
 
