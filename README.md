@@ -14,7 +14,9 @@ Only three page templates are used:
   - Shows single image at resolution specified on command line
   - Includes download link to original resolution
   - Includes disqus comment area specific to the image
-  - Navigate forward and backward with buttons, or click on the image to advance to the next image
+  - Navigate forward and backward by swiping
+  - Navigate forward and backward with onhover buttons
+  - Navigate forward by clicking on the image
 
 ## Input
 Input to ssgallery is a folder full of subfolders of files, with a single thumbnail.jpg in each subfolder that will be used as the album cover photo. In addition there are command line options to control thumbnail and image viewing sizes and to specify the base relative url.
