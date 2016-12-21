@@ -5,7 +5,11 @@ Stupidly Simple Gallery (ssgallery) is a really simple static image gallery gene
 I created this software out of frustration with all the bloated and unnecessarily complicated gallery software out there. Would you believe that some gallery software actually waits until somebody requests a thumbnail to resize the source image? This strategy does not work well when using high resolution (10+ megapixel) source images. This software is designed to support as large of images as you like, pre-cache everything and be extremely simple (run it on a folder full of files, upload the result to your web host, and you're done).
 
 ## Overview
-Only three page templates are used:
+
+ssgallery uses an extremely basic template system to generate html pages. Tags such as %SSG_GALLERY_NAME% are inserted into an html file, and at run-time are replaced with the correct strings. There is also support for lists of items (e.g. on the gallery and album pages), although the templating engine has not been heavily tested.
+
+An ssgallery theme consists of three templates:
+
 - Gallery
   - Shows list of albums
 - Album
@@ -22,7 +26,7 @@ Only three page templates are used:
 See http://lukehunter.net/nielsenphotos/
 
 ## Input
-Input to ssgallery is a folder full of subfolders of files, with a single thumbnail.jpg in each subfolder that will be used as the album cover photo. In addition there are command line options to control thumbnail and image viewing sizes and to specify the base relative url.
+Input to ssgallery is a folder full of subfolders of files, with an optional thumbnail.jpg in each subfolder that will be used as the album cover photo (if thumbnail.jpg is not present the first image in the album will be used). In addition there are command line options to control thumbnail and image viewing sizes and to specify the base relative url.
 
 ## Output
 ssgallery writes a complete web page to the target folder. Image resizing is skipped if the resized image versions have a newer write time than the source images. Html pages will be overwritten if they have changed.
