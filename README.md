@@ -63,6 +63,8 @@ You're done!
 
 ## todo
 - auto-select a thumbnail if none is present
+- parallelization
+- testing (bad args, corrupt image, non-image, empty folder, nested folder)
 - full size view link (Full Resolution: View | Download)
 - only write html pages if they have changed
 - remove unneeded html
