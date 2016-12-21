@@ -72,6 +72,7 @@ You're done!
   - hide button if there is no prev/next image
   - improve alignment
 - download gallery/album links and zip files
+- disable disqus if no url provided
 - remove extraneous files during generation (..hmm, yes/no/all warning?)
 - support nested albums
 - password protected albums
