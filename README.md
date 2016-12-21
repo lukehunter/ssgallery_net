@@ -17,6 +17,9 @@ Only three page templates are used:
   - Navigate forward and backward by swiping
   - Navigate forward and backward with onhover buttons
   - Navigate forward by clicking on the image
+  
+## Example Gallery
+See http://lukehunter.net/nielsenphotos/
 
 ## Input
 Input to ssgallery is a folder full of subfolders of files, with a single thumbnail.jpg in each subfolder that will be used as the album cover photo. In addition there are command line options to control thumbnail and image viewing sizes and to specify the base relative url.
@@ -57,6 +60,3 @@ ssgallery.exe --source "C:\Users\luke\pictures\gallery1" --target "c:\inetpub\ww
 ### 3. Upload the target folder to your web host via FTP
 
 You're done!
-
-## Example Gallery
-See http://lukehunter.net/nielsenphotos/
