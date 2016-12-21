@@ -31,7 +31,7 @@ The resulting folder can be transferred via FTP to a webhost. Since files that a
 
 ## Deployment Steps
 ### 1. Prepare files
-ssgallery expects a folder structure like the following:
+ssgallery expects a folder structure like the following. It is recommended that all images (including thumbnail.jpg) be at the largest resolution you would like available for users to download. They will be resized depending on the provided command line arguments.
 
 - pictures
   - gallery1
@@ -45,11 +45,12 @@ ssgallery expects a folder structure like the following:
       - image1.jpg
       - image2.jpg
     - album3
-      - thumbnail.jpg
       - image1.jpg
       - image2.jpg
       - image3.jpg
       - image4.jpg
+      
+Note that album3 does not have a thumbnail.jpg -- in this case album3/image1.jpg will be used as the album3 thumbnail by default.
       
 ### 2. Run ssgallery.exe
 
@@ -64,10 +65,8 @@ You're done!
 ## todo
 - parallelization
 - testing (bad args, corrupt image, non-image, empty folder, nested folder)
-- full size view link (Full Resolution: View | Download)
-- only write html pages if they have changed
 - remove unneeded html
-- optimize css
+-   "       "    css
 - clean up url building
 - improve nav button ui in default template
   - hide button if there is no prev/next image
