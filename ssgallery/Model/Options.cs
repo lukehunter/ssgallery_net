@@ -3,63 +3,70 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CommandLineParser.Arguments;
+using CommandLine;
 
 namespace ssgallery.Model
 {
     class Options
     {
-        [ValueArgument(typeof(string), 's', "source", Description = "Source folder")]
+        [Option("source", Required = true, HelpText = "Source folder")]
         public string Source
         {
             get;
             set;
         }
 
-        [ValueArgument(typeof(string), 't', "target", Description = "Target folder")]
+        [Option("target", Required = true, HelpText = "Target folder")]
         public string Target
         {
             get;
             set;
         }
 
-        [ValueArgument(typeof(string), 'n', "name", Description = "Gallery name")]
+        [Option("name", Required = true, HelpText = "Gallery name")]
         public string GalleryName
         {
             get;
             set;
         }
 
-        [ValueArgument(typeof(int), 'w', "thumbwidth", Description = "Max thumbnail width (px)")]
+        [Option("thumbwidth", Required = true, HelpText = "Max thumbnail width (px)")]
         public int MaxThumbnailWidth
         {
             get;
             set;
         }
 
-        [ValueArgument(typeof(int), 'x', "thumbheight", Description = "Max thumbnail height (px)")]
+        [Option("thumbheight", Required = true, HelpText = "Max thumbnail height (px)")]
         public int MaxThumbnailHeight
         {
             get;
             set;
         }
 
-        [ValueArgument(typeof(int), 'y', "lightwidth", Description = "Max lightbox width (px)")]
+        [Option("lightwidth", Required = true, HelpText = "Max lightbox width (px)")]
         public int MaxLightboxWidth
         {
             get;
             set;
         }
 
-        [ValueArgument(typeof(int), 'z', "lightheight", Description = "Max lightbox height (px)")]
+        [Option("lightheight", Required = true, HelpText = "Max lightbox height (px)")]
         public int MaxLightboxHeight
         {
             get;
             set;
         }
 
-        [ValueArgument(typeof(string), 'r', "link", Description = "Home url")]
-        public string HomeUrl
+        [Option("baseurl", Required = true, HelpText = "Base url")]
+        public string BaseUrl
+        {
+            get;
+            set;
+        }
+
+        [Option("disqus", Required = true, HelpText = "Disqus js embed path")]
+        public string Disqus
         {
             get;
             set;

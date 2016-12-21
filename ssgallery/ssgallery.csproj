@@ -32,8 +32,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CommandLineArgumentsParser">
-      <HintPath>..\packages\CommandLineArgumentsParser.3.0.4\lib\net45\CommandLineArgumentsParser.dll</HintPath>
+    <Reference Include="CommandLine">
+      <HintPath>..\packages\CommandLineParser.1.9.71\lib\net45\CommandLine.dll</HintPath>
     </Reference>
     <Reference Include="Magick.NET-Q16-AnyCPU">
       <HintPath>..\packages\Magick.NET-Q16-AnyCPU.7.0.3.902\lib\net40-client\Magick.NET-Q16-AnyCPU.dll</HintPath>

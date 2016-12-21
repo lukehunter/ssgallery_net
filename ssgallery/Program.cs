@@ -45,11 +45,8 @@ namespace ssgallery
 
         private static void ParseCommandLine(string[] args)
         {
-            var parser = new CommandLineParser.CommandLineParser();
             mOptions = new Options();
-
-            parser.ExtractArgumentAttributes(mOptions);
-            parser.ParseCommandLine(args);
+            CommandLine.Parser.Default.ParseArguments(args, mOptions);
 
             if (!Directory.Exists(mOptions.Target))
             {
@@ -166,8 +163,9 @@ namespace ssgallery
             Dictionary<string, string> GalleryValues = new Dictionary<string, string>()
             {
                 {"SSG_GALLERY_NAME", mGallery.Name},
-                {"SSG_HOME_URL", "/" + mOptions.HomeUrl + "/"},
-                {"SSG_GALLERY_URL", "/" + mOptions.HomeUrl + "/" + mGallery.Name + "/"}
+                {"SSG_HOME_URL", mOptions.BaseUrl},
+                {"SSG_GALLERY_URL", mOptions.BaseUrl + mGallery.Name + "/"},
+                {"SSG_DISQUS_URL", mOptions.Disqus}
             };
 
             galleryTemplate.AddValues(GalleryValues);
@@ -177,7 +175,7 @@ namespace ssgallery
                 Dictionary<string, string> AlbumValues = new Dictionary<string, string>()
                 {
                     { "SSG_ALBUM_NAME", album.Name },
-                    { "SSG_ALBUM_URL", "/" + mOptions.HomeUrl + "/" + album.Name + "/"}
+                    { "SSG_ALBUM_URL", mOptions.BaseUrl + album.Name + "/"}
                 };
 
                 Template albumTemplate = new Template() { RawHtml = albumTemplateRaw };
