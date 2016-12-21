@@ -63,6 +63,8 @@ You're done!
 
 ## todo
 - auto-select a thumbnail if none is present
+- only write html pages if they have changed
+- remove unneeded html
 - optimize css
 - clean up url building
 - improve nav button ui in default template
