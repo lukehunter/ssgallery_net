@@ -44,15 +44,15 @@ namespace ssgallery.Model
             set;
         }
 
-        [Option("lightwidth", Required = true, HelpText = "Max lightbox width (px)")]
-        public int MaxLightboxWidth
+        [Option("viewerwidth", Required = true, HelpText = "Max image viewing width (px)")]
+        public int MaxViewerWidth
         {
             get;
             set;
         }
 
-        [Option("lightheight", Required = true, HelpText = "Max lightbox height (px)")]
-        public int MaxLightboxHeight
+        [Option("viewerheight", Required = true, HelpText = "Max image viewing height (px)")]
+        public int MaxViewerHeight
         {
             get;
             set;
