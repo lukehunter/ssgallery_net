@@ -70,6 +70,7 @@ You're done!
 - improve nav button ui in default template
   - hide button if there is no prev/next image
   - improve alignment
+- download gallery/album links and zip files
 - support nested albums
 - password protected albums
 - more themes
