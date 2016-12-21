@@ -1,0 +1,2 @@
+# ssgallery
+Stupidly Simple Gallery
