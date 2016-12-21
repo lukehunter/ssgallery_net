@@ -62,7 +62,6 @@ ssgallery.exe --source "C:\Users\luke\pictures\gallery1" --target "c:\inetpub\ww
 You're done!
 
 ## todo
-- auto-select a thumbnail if none is present
 - parallelization
 - testing (bad args, corrupt image, non-image, empty folder, nested folder)
 - full size view link (Full Resolution: View | Download)
@@ -74,7 +73,8 @@ You're done!
   - hide button if there is no prev/next image
   - improve alignment
 - download gallery/album links and zip files
-- remove extraneous files during generation (..hmm)
+- remove extraneous files during generation (..hmm, yes/no/all warning?)
 - support nested albums
 - password protected albums
+- mono support
 - more themes
