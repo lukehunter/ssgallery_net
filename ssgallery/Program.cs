@@ -92,35 +92,45 @@ namespace ssgallery
         {
             foreach (var album in mGallery.Albums)
             {
-                Directory.CreateDirectory(Path.Combine(mOptions.Target, album.Name));
                 Directory.CreateDirectory(Path.Combine(mOptions.Target, album.Name, CacheFolder));
 
                 Console.WriteLine(string.Format("Caching {0} album", album.Name));
 
-                string thumbname = "", lightname = "";
-
                 foreach (var image in album.Images)
                 {
                     File.Copy(image.Path, Path.Combine(mOptions.Target, album.Name, Path.GetFileName(image.Path)), true);
-                    SaveResizedImage(album, image, mOptions.MaxThumbnailWidth, mOptions.MaxThumbnailHeight);
-                    SaveResizedImage(album, image, mOptions.MaxLightboxWidth, mOptions.MaxLightboxHeight);
+
+                    
+                    var targetPath = Path.Combine(mOptions.Target, album.Name, CacheFolder, FormatFilename(image.Name, mOptions.MaxThumbnailWidth, mOptions.MaxThumbnailHeight));
+                    SaveResizedImage(image, mOptions.MaxThumbnailWidth, mOptions.MaxThumbnailHeight, targetPath);
+
+                    targetPath = Path.Combine(mOptions.Target, album.Name, CacheFolder,
+                                              FormatFilename(image.Name, mOptions.MaxViewerWidth,
+                                                             mOptions.MaxViewerHeight));
+                    SaveResizedImage(image, mOptions.MaxViewerWidth, mOptions.MaxViewerHeight, targetPath);
                 }
 
                 var thumbnailPath = Path.Combine(album.FolderPath, "thumbnail.jpg");
+                var targetThumbnailPath = Path.Combine(mOptions.Target, album.Name, "thumbnail.jpg");
                 
+                // Always generate thumbnail -- otherwise if thumbnail.jpg is removed from source (plausible) it will never be re-generated in the target
                 if (File.Exists(thumbnailPath))
                 {
-                    File.Copy(thumbnailPath, Path.Combine(mOptions.Target, album.Name, Path.GetFileName(thumbnailPath)), true);
+                    SaveResizedImage(new Image() { Path = thumbnailPath }, mOptions.MaxThumbnailWidth, mOptions.MaxThumbnailHeight, targetThumbnailPath, false);
+                }
+                else
+                {
+                    var image = album.Images[0];
+                    Console.WriteLine("File {0} not found, using {1} as album thumbnail", thumbnailPath, image.Path);
+                    SaveResizedImage(image, mOptions.MaxThumbnailHeight, mOptions.MaxThumbnailWidth, targetThumbnailPath, false);
                 }
             }
         }
 
-        private static void SaveResizedImage(Album album, Image image, int width, int height)
+        // TODO LAH 2016-12-21: move this to Image
+        private static void SaveResizedImage(Image image, int width, int height, string targetPath, bool skipIfNewer = true)
         {
-            var targetFolder = Path.Combine(mOptions.Target, album.Name, CacheFolder);
-            var targetPath = Path.Combine(targetFolder, FormatFilename(image.Name, width, height));
-
-            if( File.Exists(targetPath) )
+            if( skipIfNewer && File.Exists(targetPath) )
             {
                 var imageInfo = new FileInfo(image.Path);
                 var existingInfo = new FileInfo(targetPath);
@@ -201,7 +211,7 @@ namespace ssgallery
                     {
                         var nextImage = album.Images[imageIndex + 1];
                         nextPage = string.Format("{0}.html", nextImage.Name);
-                        picToPreload = CacheFolder + "/" + FormatFilename(nextImage.Name, mOptions.MaxLightboxWidth, mOptions.MaxLightboxHeight);
+                        picToPreload = CacheFolder + "/" + FormatFilename(nextImage.Name, mOptions.MaxViewerWidth, mOptions.MaxViewerHeight);
                     }
 
                     Dictionary<string, string> ImageValues = new Dictionary<string, string>()
@@ -212,7 +222,7 @@ namespace ssgallery
                         {"SSG_PRELOAD_URL", picToPreload},
                         {"SSG_IMAGE_WIDTH", image.Width.ToString()},
                         {"SSG_IMAGE_HEIGHT", image.Height.ToString()},
-                        {"SSG_IMAGE_URL", CacheFolder + "/" + FormatFilename(image.Name, mOptions.MaxLightboxWidth, mOptions.MaxLightboxHeight)},
+                        {"SSG_IMAGE_URL", CacheFolder + "/" + FormatFilename(image.Name, mOptions.MaxViewerWidth, mOptions.MaxViewerHeight)},
                         {"SSG_IMAGE_PAGE_URL", string.Format("{0}.html", image.Name)},
                         {"SSG_IMAGE_ID", string.Format("{0}-{1}-{2}", mGallery.Name, album.Name, image.Name)},
                         {"SSG_IMAGE_THUMBNAIL_URL", CacheFolder + "/" + FormatFilename(image.Name, mOptions.MaxThumbnailWidth, mOptions.MaxThumbnailHeight)},
