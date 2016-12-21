@@ -41,11 +41,6 @@ namespace ssgallery
                 throw new Exception(string.Format("Could not find path {0}", mOptions.Source));
             }
 
-            if( !Directory.Exists(mOptions.Target) )
-            {
-                Directory.CreateDirectory(mOptions.Target);
-            }
-
             mGallery = new Gallery() { Name = mOptions.GalleryName };
 
             var dirs = Directory.GetDirectories(mOptions.Source);
@@ -219,7 +214,7 @@ namespace ssgallery
                         picToPreload = CacheFolder + "/" + FormatFilename(nextImage.Name, mOptions.MaxViewerWidth, mOptions.MaxViewerHeight);
                     }
 
-                    var imageThumbnail = Path.Combine(mOptions.Target, album.Name, "thumbnail.jpg");
+                    var imageThumbnail = Path.Combine(mOptions.Target, album.Name, CacheFolder, FormatFilename(image.Name, mOptions.MaxThumbnailWidth, mOptions.MaxThumbnailHeight));
                     var imageThumbImage = new MagickImage(imageThumbnail);
 
                     var ImageValues = new Dictionary<string, string>()
