@@ -9,9 +9,9 @@ Only three page templates are used:
 - Gallery
   - Shows list of albums
 - Album
-  - Shows list of photos
-- Photo
-  - Shows single photo at resolution specified on command line
+  - Shows list of images
+- Image
+  - Shows single image at resolution specified on command line
   - Includes download and view links for original resolution
   - Includes disqus comment area specific to the image
   - Navigate forward and backward by swiping on tablets and phones
@@ -25,9 +25,9 @@ See http://lukehunter.net/nielsenphotos/
 Input to ssgallery is a folder full of subfolders of files, with a single thumbnail.jpg in each subfolder that will be used as the album cover photo. In addition there are command line options to control thumbnail and image viewing sizes and to specify the base relative url.
 
 ## Output
-ssgallery writes a complete web page to the target folder. Image resizing is skipped if the resized image versions have a newer write time than the source images. Html pages are always generated, and any existing html pages will be overwritten.
+ssgallery writes a complete web page to the target folder. Image resizing is skipped if the resized image versions have a newer write time than the source images. Html pages will be overwritten if they have changed.
 
-The resulting folder can be transferred via FTP to a webhost.
+The resulting folder can be transferred via FTP to a webhost. Since files that are up to date are not touched, using the "Overwrite if source file is newer" option in your FTP client (e.g. FileZilla) will make incremental updates faster.
 
 ## Deployment Steps
 ### 1. Prepare files
