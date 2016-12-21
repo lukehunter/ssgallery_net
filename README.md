@@ -25,8 +25,6 @@ ssgallery writes a complete web page to the target folder. Image pre-caching is 
 The resulting folder can be transferred via FTP to a webhost and you are done my man.
 
 ## Deployment Steps
-1. Create a file hierarchy like the following:
-
 - pictures
   - gallery1
     - album1
@@ -45,8 +43,10 @@ The resulting folder can be transferred via FTP to a webhost and you are done my
       - image3.jpg
       - image4.jpg
       
+1. Create a file hierarchy like above
+      
 1. Run ssgallery on your files
-ssgallery.exe --source "C:\Users\luke\pictures\gallery1" --target "c:\inetpub\wwwroot\mywebgallery" --name "Gallery Numero Uno" --thumbwidth 150 --thumbheight 150 --lightwidth 1500 --lightheight 1000 --baseurl "/mywebgallery/" --disqus "//your-disqus-url.disqus.com/embed.js"
+ssgallery.exe --source "C:\Users\luke\pictures\gallery1" --target "c:\inetpub\wwwroot\mywebgallery" --name "My Web Gallery" --thumbwidth 150 --thumbheight 150 --lightwidth 1500 --lightheight 1000 --baseurl "/mywebgallery/" --disqus "//your-disqus-url.disqus.com/embed.js"
 
 1. Upload the target folder to your web host via FTP
 
