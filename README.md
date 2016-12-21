@@ -55,7 +55,7 @@ ssgallery expects a folder structure like the following:
 
 The following is an example command line for ssgallery hosted at http://server/mywebgallery/:
 
-ssgallery.exe --source "C:\Users\luke\pictures\gallery1" --target "c:\inetpub\wwwroot\mywebgallery" --name "My Web Gallery" --thumbwidth 150 --thumbheight 150 --lightwidth 1500 --lightheight 1000 --baseurl "/mywebgallery/" --disqus "//your-disqus-url.disqus.com/embed.js"
+ssgallery.exe --source "C:\Users\luke\pictures\gallery1" --target "c:\inetpub\wwwroot\mywebgallery" --name "My Web Gallery" --thumbwidth 150 --thumbheight 150 --viewerwidth 1500 --viewerheight 1000 --baseurl "/mywebgallery/" --disqus "//your-disqus-url.disqus.com/embed.js"
 
 ### 3. Upload the target folder to your web host via FTP
 
@@ -74,6 +74,7 @@ You're done!
   - hide button if there is no prev/next image
   - improve alignment
 - download gallery/album links and zip files
+- remove extraneous files during generation (..hmm)
 - support nested albums
 - password protected albums
 - more themes
