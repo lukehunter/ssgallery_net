@@ -189,7 +189,6 @@ namespace ssgallery
 
                 foreach (var image in album.Images)
                 {
-                    // TODO LAH 2016-12-20: fix next/prev
                     var imageIndex = album.Images.IndexOf(image);
                     string nextPage = "", prevPage = "", picToPreload = "";
 
