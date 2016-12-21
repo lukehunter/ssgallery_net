@@ -60,3 +60,11 @@ ssgallery.exe --source "C:\Users\luke\pictures\gallery1" --target "c:\inetpub\ww
 ### 3. Upload the target folder to your web host via FTP
 
 You're done!
+
+## todo
+- auto-select a thumbnail if none is present
+- optimize css
+- clean up url building
+- support nested albums
+- password protected albums
+- more themes
