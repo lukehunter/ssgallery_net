@@ -10,11 +10,11 @@ Only three page templates are used:
   - Shows list of albums
 - Album
   - Shows list of photos
-- Image
-  - Shows single image at resolution specified on command line
-  - Includes download link to original resolution
+- Photo
+  - Shows single photo at resolution specified on command line
+  - Includes download and view links for original resolution
   - Includes disqus comment area specific to the image
-  - Navigate forward and backward by swiping
+  - Navigate forward and backward by swiping on tablets and phones
   - Navigate forward and backward with onhover buttons
   - Navigate forward by clicking on the image
   
@@ -25,9 +25,9 @@ See http://lukehunter.net/nielsenphotos/
 Input to ssgallery is a folder full of subfolders of files, with a single thumbnail.jpg in each subfolder that will be used as the album cover photo. In addition there are command line options to control thumbnail and image viewing sizes and to specify the base relative url.
 
 ## Output
-ssgallery writes a complete web page to the target folder. Image pre-caching is skipped if the resized image versions have a newer write time than the source images. Html pages are always generated, and any existing html pages will be overwritten.
+ssgallery writes a complete web page to the target folder. Image resizing is skipped if the resized image versions have a newer write time than the source images. Html pages are always generated, and any existing html pages will be overwritten.
 
-The resulting folder can be transferred via FTP to a webhost and you are done my man.
+The resulting folder can be transferred via FTP to a webhost.
 
 ## Deployment Steps
 ### 1. Prepare files
@@ -53,7 +53,7 @@ ssgallery expects a folder structure like the following:
       
 ### 2. Run ssgallery.exe
 
-The following is an example command line for ssgallery:
+The following is an example command line for ssgallery hosted at http://server/mywebgallery/:
 
 ssgallery.exe --source "C:\Users\luke\pictures\gallery1" --target "c:\inetpub\wwwroot\mywebgallery" --name "My Web Gallery" --thumbwidth 150 --thumbheight 150 --lightwidth 1500 --lightheight 1000 --baseurl "/mywebgallery/" --disqus "//your-disqus-url.disqus.com/embed.js"
 
