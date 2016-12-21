@@ -65,6 +65,7 @@ You're done!
 - auto-select a thumbnail if none is present
 - optimize css
 - clean up url building
+- improve nav button ui in default template
 - support nested albums
 - password protected albums
 - more themes
