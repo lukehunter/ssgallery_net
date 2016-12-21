@@ -68,6 +68,8 @@ You're done!
 - optimize css
 - clean up url building
 - improve nav button ui in default template
+  - hide button if there is no prev/next image
+  - improve alignment
 - support nested albums
 - password protected albums
 - more themes
