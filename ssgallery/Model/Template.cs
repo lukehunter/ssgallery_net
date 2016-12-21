@@ -55,6 +55,21 @@ namespace ssgallery.Model
                 rendered = rendered.Replace(fmt, Values[key]);
             }
 
+            if (File.Exists(filename))
+            {
+                var md5 = System.Security.Cryptography.MD5.Create();
+                var renderedBytes = Encoding.ASCII.GetBytes(rendered);
+                var renderedHash = md5.ComputeHash(renderedBytes);
+                var existingBytes = File.ReadAllBytes(filename);
+                var existingHash = md5.ComputeHash(existingBytes);
+                
+                if (renderedHash.SequenceEqual(existingHash))
+                {
+                    Console.WriteLine("Skipping {0}, existing file is up to date", filename);
+                    return;
+                }
+            }
+
             Console.WriteLine(string.Format("Writing {0}", filename));
 
             File.WriteAllText(filename, rendered);
@@ -91,21 +106,21 @@ namespace ssgallery.Model
 
             var belowItems = rendered.Substring(endindex, (rendered.Length - endindex));
 
-            string allItems = "";
+            string itemsHtml = "";
 
             foreach (var item in Items)
             {
-                var oneItem = itemTemplate;
+                var curItemHtml = itemTemplate;
                 foreach (var key in item.Values.Keys)
                 {
                     var fmt = string.Format("%{0}%", key);
-                    oneItem = oneItem.Replace(fmt, item.Values[key]);
+                    curItemHtml = curItemHtml.Replace(fmt, item.Values[key]);
                 }
 
-                allItems += oneItem + Environment.NewLine;
+                itemsHtml += curItemHtml + Environment.NewLine;
             }
 
-            rendered = aboveItems + allItems + belowItems;
+            rendered = aboveItems + itemsHtml + belowItems;
 
             return rendered;
         }

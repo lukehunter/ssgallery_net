@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ImageMagick;
 using ssgallery.Model;
 
@@ -14,6 +12,8 @@ namespace ssgallery
         private static readonly string CacheFolder = "cache";
         private static Options mOptions;
         private static Gallery mGallery;
+        private static readonly Func<string, int, int, string> FormatFilename =
+            (imagename, width, height) => string.Format("{0}_{1}_{2}.jpg", imagename, width, height);
 
         static void Main(string[] args)
         {
@@ -22,36 +22,13 @@ namespace ssgallery
             CopyResources();
             PopulateImageCache();
             CreatePages();
+            WaitForExit();
         }
-
-        private static void CopyResources()
-        {
-            string sourcePath = Path.Combine(Environment.CurrentDirectory, "Resources");
-            string destPath = mOptions.Target;
-
-            // Create all of the directories
-            foreach( string dirPath in Directory.GetDirectories(sourcePath, "*",
-                SearchOption.AllDirectories) )
-                Directory.CreateDirectory(dirPath.Replace(sourcePath, destPath));
-
-            // Copy all the files & Replace any with the same name
-            foreach( string newPath in Directory.GetFiles(sourcePath, "*.*",
-                SearchOption.AllDirectories) )
-                File.Copy(newPath, newPath.Replace(sourcePath, destPath), true);
-        }
-
-        private static readonly Func<string, int, int, string> FormatFilename =
-            (imagename, width, height) => string.Format("{0}_{1}_{2}.jpg", imagename, width, height);
 
         private static void ParseCommandLine(string[] args)
         {
             mOptions = new Options();
             CommandLine.Parser.Default.ParseArguments(args, mOptions);
-
-            if (!Directory.Exists(mOptions.Target))
-            {
-                Directory.CreateDirectory(mOptions.Target);
-            }
         }
 
         /// <summary>
@@ -62,6 +39,11 @@ namespace ssgallery
             if (!Directory.Exists(mOptions.Source))
             {
                 throw new Exception(string.Format("Could not find path {0}", mOptions.Source));
+            }
+
+            if( !Directory.Exists(mOptions.Target) )
+            {
+                Directory.CreateDirectory(mOptions.Target);
             }
 
             mGallery = new Gallery() { Name = mOptions.GalleryName };
@@ -88,6 +70,22 @@ namespace ssgallery
 
                 mGallery.Albums.Add(curAlbum);
             }
+        }
+
+        private static void CopyResources()
+        {
+            string sourcePath = Path.Combine(Environment.CurrentDirectory, "Resources");
+            string destPath = mOptions.Target;
+
+            // Create all of the directories
+            foreach( string dirPath in Directory.GetDirectories(sourcePath, "*",
+                SearchOption.AllDirectories) )
+                Directory.CreateDirectory(dirPath.Replace(sourcePath, destPath));
+
+            // Copy all the files & Replace any with the same name
+            foreach( string newPath in Directory.GetFiles(sourcePath, "*.*",
+                SearchOption.AllDirectories) )
+                File.Copy(newPath, newPath.Replace(sourcePath, destPath), true);
         }
 
         private static void PopulateImageCache()
@@ -122,18 +120,18 @@ namespace ssgallery
             var targetFolder = Path.Combine(mOptions.Target, album.Name, CacheFolder);
             var targetPath = Path.Combine(targetFolder, FormatFilename(image.Name, width, height));
 
-            if (File.Exists(targetPath))
+            if( File.Exists(targetPath) )
             {
                 var imageInfo = new FileInfo(image.Path);
                 var existingInfo = new FileInfo(targetPath);
 
-                if (imageInfo.LastWriteTime <= existingInfo.LastWriteTime)
+                if( imageInfo.LastWriteTime <= existingInfo.LastWriteTime )
                 {
                     MagickImage target = new MagickImage(targetPath);
                     image.Width = target.Width;
                     image.Height = target.Height;
 
-                    Console.WriteLine(string.Format("Skipping generation for {0} (target file's last write time is newer than source", Path.GetFileName(targetPath)));
+                    Console.WriteLine(string.Format("Skipping resizing for {0} (target file's last write time is newer than source", Path.GetFileName(targetPath)));
                     return;
                 }
             }
@@ -244,6 +242,12 @@ namespace ssgallery
             }
 
             galleryTemplate.RenderHtml(Path.Combine(mOptions.Target, "index.html"));
+        }
+
+        private static void WaitForExit()
+        {
+            Console.WriteLine("Press enter to quit");
+            Console.ReadLine();
         }
     }
 }
