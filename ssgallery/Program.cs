@@ -111,7 +111,7 @@ namespace ssgallery
                 // Always generate thumbnail -- otherwise if thumbnail.jpg is removed from source (plausible) it will never be re-generated in the target
                 if (File.Exists(thumbnailPath))
                 {
-                    SaveResizedImage(new Image() { Path = thumbnailPath }, mOptions.MaxThumbnailWidth, mOptions.MaxThumbnailHeight, targetThumbnailPath, false);
+                    SaveResizedImage(new Image() { Name = string.Format("{0} thumbnail", album.Name), Path = thumbnailPath }, mOptions.MaxThumbnailWidth, mOptions.MaxThumbnailHeight, targetThumbnailPath, false);
                 }
                 else
                 {
