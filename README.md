@@ -69,6 +69,7 @@ You're done!
 ## known issues
 - If you run ssgallery multiple times and remove some images in between runs, you will end up with extra files in your destination folder. over time this could grow and start wasting disk space. a simple workaround is to completely delete the target folder and re-generate from scratch occasionally.
 - Thumbnail sizes other than 170x130 are not currently supported. some changes to the CSS are required.
+- Layout is a little small on mobile devices. Could use some responsive design.
 - Occasionally File.Copy throws an IOException related to disk space even when plenty of space is available. Setting the following registry key may help:
 
    HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters\IRPStackSize DWORD 0x0000000f (15) 
