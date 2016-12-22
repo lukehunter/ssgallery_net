@@ -28,7 +28,7 @@ See http://lukehunter.net/nielsenphotos/
 ## Installation
 
 1. If on MacOS or Linux, Install [Mono](http://www.mono-project.com/download/).
-1. Download/extract [ssgallery.zip](https://github.com/lukehunter/ssgallery/blob/master/ssgallery/ssgallery.zip)
+1. Download/extract [ssgallery.zip](https://github.com/lukehunter/ssgallery/raw/master/ssgallery/ssgallery.zip)
 
 ## Usage
 
