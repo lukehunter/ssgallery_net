@@ -27,8 +27,10 @@ See http://lukehunter.net/nielsenphotos/
 
 ## Installation
 
-1. If on MacOS or Linux, Install [Mono](http://www.mono-project.com/download/).
-1. Download/extract [ssgallery.zip](https://github.com/lukehunter/ssgallery/raw/master/ssgallery/ssgallery.zip)
+1. If on MacOS or Linux
+  1. Install [Mono](http://www.mono-project.com/download/).
+  1. Add Mono to your path. On MacOS it will be installed to /Library/Frameworks/Mono.framework/Versions/Current/bin/
+1. Download/extract [ssgallery.zip](https://github.com/lukehunter/ssgallery/raw/master/ssgallery/ssgallery.zip) to your applications folder
 
 ## Usage
 
@@ -38,9 +40,9 @@ The following is an example command line for ssgallery hosted at http://server/m
 
 ssgallery.exe --source "C:\Users\luke\pictures\gallery1" --target "c:\inetpub\wwwroot\mywebgallery" --name "My Web Gallery" --thumbwidth 170 --thumbheight 130 --viewerwidth 1500 --viewerheight 1000 --baseurl "/mywebgallery/" --disqus "//your-disqus-url.disqus.com/embed.js"
 
-### MacOS/Linux + Mono
+### MacOS + Mono
 
-mono ssgallery.exe --source "/Users/luke/Pictures/gallery1" --target "/srv/www/mywebgallery" --name "My Web Gallery" --thumbwidth 170 --thumbheight 130 --viewerwidth 1500 --viewerheight 1000 --baseurl "/mywebgallery/" --disqus "//your-disqus-url.disqus.com/embed.js"
+mono /Applications/ssgallery/ssgallery.exe --source "/Users/luke/Pictures/gallery1" --target "/srv/www/mywebgallery" --name "My Web Gallery" --thumbwidth 170 --thumbheight 130 --viewerwidth 1500 --viewerheight 1000 --baseurl "/mywebgallery/" --disqus "//your-disqus-url.disqus.com/embed.js"
 
 ## Input
 Input to ssgallery is a folder full of subfolders of files, with an optional thumbnail.jpg in each subfolder that will be used as the album cover photo (if thumbnail.jpg is not present the first image in the album will be used). In addition there are command line options to control thumbnail and image viewing sizes and to specify the base relative url.
