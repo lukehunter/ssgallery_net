@@ -47,15 +47,10 @@ namespace ssgallery.Model
 
         public void SetHiddenRegion(string regionTag, bool hidden)
         {
-            var startToken = string.Format("{0}_REGION_START", regionTag);
-            var endToken = string.Format("{0}_REGION_END", regionTag);
-            var jsStartToken = string.Format("{0}_JS_REGION_START", regionTag);
-            var jsEndToken = string.Format("{0}_JS_REGION_END", regionTag);
-            AddValue(startToken, hidden ? "<!--" : "");
-            AddValue(endToken, hidden ? "-->" : "");
-
-            AddValue(jsStartToken, hidden ? "/*" : "");
-            AddValue(jsEndToken, hidden ? "*/" : "");
+            var startTokenString = string.Format("{0}_REGION_START", regionTag);
+            var endTokenString = string.Format("{0}_REGION_END", regionTag);
+            AddValue(startTokenString, hidden ? "<!--" : "");
+            AddValue(endTokenString, hidden ? "-->" : "");
         }
 
         public void RenderHtml(string filename)
