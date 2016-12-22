@@ -10,7 +10,9 @@
 	<link rel="start" title="Home" href="%SSG_HOME_URL%" >
 	<link rel="prev" title="Prev" href="%SSG_PREV_IMAGE_PAGE_URL%" >
 	<link rel="next" title="Next" href="%SSG_NEXT_IMAGE_PAGE_URL%" >
-    <link rel="preload" href="%SSG_PRELOAD_URL%">
+    %SSG_NEXT_IMAGE_LINK_REGION_START%
+	<link rel="preload" href="%SSG_PRELOAD_URL%">
+    %SSG_NEXT_IMAGE_LINK_REGION_END%
 
 	<script type="text/javascript">
 	// configuration options
@@ -71,11 +73,19 @@
 			            <div id="theImage">
 
 			                <div id="theImg" class="img_frame">
+			                    %SSG_PREV_IMAGE_LINK_REGION_START%
 			                    <a href="%SSG_PREV_IMAGE_PAGE_URL%" class="img_nav img_prev">&nbsp;</a>
+			                    %SSG_PREV_IMAGE_LINK_REGION_END%
+                                %SSG_NEXT_IMAGE_LINK_REGION_START%
 			                    <a href="%SSG_NEXT_IMAGE_PAGE_URL%" class="img_nav img_next">&nbsp;</a>
+			                    %SSG_NEXT_IMAGE_LINK_REGION_END%
+                                %SSG_NEXT_IMAGE_LINK_REGION_START%
 			                    <a href="%SSG_NEXT_IMAGE_PAGE_URL%">
+			                    %SSG_NEXT_IMAGE_LINK_REGION_END%
 			                        <img src="%SSG_IMAGE_URL%" width="%SSG_IMAGE_WIDTH%" height="%SSG_IMAGE_HEIGHT%" alt="%SSG_IMAGE_NAME%" id="theMainImage" class="hideTabs">
+                                %SSG_NEXT_IMAGE_LINK_REGION_START%
 			                    </a>	
+                                %SSG_NEXT_IMAGE_LINK_REGION_END%
 			                </div>
                         </div>
 			        </div>

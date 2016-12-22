@@ -95,7 +95,6 @@ namespace ssgallery
                 {
                     File.Copy(image.Path, Path.Combine(mOptions.Target, album.Name, Path.GetFileName(image.Path)), true);
 
-                    
                     var targetPath = Path.Combine(mOptions.Target, album.Name, CacheFolder, FormatFilename(image.Name, mOptions.MaxThumbnailWidth, mOptions.MaxThumbnailHeight));
                     SaveResizedImage(image, mOptions.MaxThumbnailWidth, mOptions.MaxThumbnailHeight, targetPath);
 
@@ -135,6 +134,7 @@ namespace ssgallery
                     MagickImage target = new MagickImage(targetPath);
                     image.Width = target.Width;
                     image.Height = target.Height;
+                    target.Dispose();
 
                     Console.WriteLine(string.Format("Skipping resizing for {0} (target file's last write time is newer than source", Path.GetFileName(targetPath)));
                     return;
@@ -178,7 +178,7 @@ namespace ssgallery
                 var albumThumbnail = Path.Combine(mOptions.Target, album.Name, "thumbnail.jpg");
                 var albumThumbImage = new MagickImage(albumThumbnail);
 
-                var AlbumValues = new Dictionary<string, string>()
+                var albumValues = new Dictionary<string, string>()
                 {
                     { "SSG_ALBUM_NAME", album.Name },
                     { "SSG_ALBUM_URL", mOptions.BaseUrl + album.Name + "/"},
@@ -186,25 +186,37 @@ namespace ssgallery
                     { "SSG_ALBUM_THUMBNAIL_HEIGHT", albumThumbImage.Height.ToString()}
                 };
 
+                albumThumbImage.Dispose();
+
                 var albumTemplate = new Template() { RawHtml = albumTemplateRaw };
 
                 albumTemplate.AddValues(galleryValues);
-                albumTemplate.AddValues(AlbumValues);
+                albumTemplate.AddValues(albumValues);
 
                 galleryTemplate.Items.Add(new TemplateItem()
                 {
                     Tag = "SSG_ALBUM_LIST_ITEM",
-                    Values = AlbumValues
+                    Values = albumValues
                 });
 
                 foreach (var image in album.Images)
                 {
+                    var imageTemplate = new Template()
+                    {
+                        RawHtml = imageTemplateRaw
+                    };
+
                     var imageIndex = album.Images.IndexOf(image);
                     string nextPage = "", prevPage = "", picToPreload = "";
 
                     if (imageIndex > 0)
                     {
                         prevPage = string.Format("{0}.html", album.Images[imageIndex - 1].Name);
+                        imageTemplate.SetHiddenRegion("SSG_PREV_IMAGE_LINK", false);
+                    }
+                    else
+                    {
+                        imageTemplate.SetHiddenRegion("SSG_PREV_IMAGE_LINK", true);
                     }
 
                     if (imageIndex < album.Images.Count - 1)
@@ -212,12 +224,18 @@ namespace ssgallery
                         var nextImage = album.Images[imageIndex + 1];
                         nextPage = string.Format("{0}.html", nextImage.Name);
                         picToPreload = CacheFolder + "/" + FormatFilename(nextImage.Name, mOptions.MaxViewerWidth, mOptions.MaxViewerHeight);
+
+                        imageTemplate.SetHiddenRegion("SSG_NEXT_IMAGE_LINK", false);
+                    }
+                    else
+                    {
+                        imageTemplate.SetHiddenRegion("SSG_NEXT_IMAGE_LINK", true);
                     }
 
                     var imageThumbnail = Path.Combine(mOptions.Target, album.Name, CacheFolder, FormatFilename(image.Name, mOptions.MaxThumbnailWidth, mOptions.MaxThumbnailHeight));
                     var imageThumbImage = new MagickImage(imageThumbnail);
 
-                    var ImageValues = new Dictionary<string, string>()
+                    var imageValues = new Dictionary<string, string>()
                     {
                         {"SSG_IMAGE_NAME", image.Name},
                         {"SSG_PREV_IMAGE_PAGE_URL", prevPage},
@@ -234,19 +252,16 @@ namespace ssgallery
                         {"SSG_IMAGE_THUMBNAIL_HEIGHT", imageThumbImage.Height.ToString()}
                     };
 
-                    var imageTemplate = new Template()
-                    {
-                        RawHtml = imageTemplateRaw
-                    };
+                    imageThumbImage.Dispose();
 
                     imageTemplate.AddValues(galleryValues);
-                    imageTemplate.AddValues(AlbumValues);
-                    imageTemplate.AddValues(ImageValues);
+                    imageTemplate.AddValues(albumValues);
+                    imageTemplate.AddValues(imageValues);
 
                     albumTemplate.Items.Add(new TemplateItem()
                     {
                         Tag = "SSG_IMAGE_LIST_ITEM",
-                        Values = ImageValues
+                        Values = imageValues
                     });
 
                     imageTemplate.RenderHtml(Path.Combine(mOptions.Target, album.Name, string.Format("{0}.html", image.Name)));

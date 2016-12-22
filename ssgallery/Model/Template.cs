@@ -45,6 +45,14 @@ namespace ssgallery.Model
             }
         }
 
+        public void SetHiddenRegion(string regionTag, bool hidden)
+        {
+            var startTokenString = string.Format("{0}_REGION_START", regionTag);
+            var endTokenString = string.Format("{0}_REGION_END", regionTag);
+            AddValue(startTokenString, hidden ? "<!--" : "");
+            AddValue(endTokenString, hidden ? "-->" : "");
+        }
+
         public void RenderHtml(string filename)
         {
             var rendered = RenderItems();

@@ -6,7 +6,7 @@ I created this software out of frustration with all the bloated and unnecessaril
 
 ## Overview
 
-ssgallery uses an extremely basic template system to generate html pages. Tags such as %SSG_GALLERY_NAME% are inserted into an html file, and at run-time are replaced with the correct strings. There is also support for lists of items (e.g. on the gallery and album pages), although the templating engine has not been heavily tested.
+ssgallery uses an extremely basic template system to generate html pages. Tokens such as %SSG_GALLERY_NAME% are inserted into an html file, and at run-time are replaced with the correct strings. There is also support for lists of items (e.g. on the gallery and album pages), although the templating engine has not been heavily tested.
 
 An ssgallery theme consists of three templates:
 
@@ -60,11 +60,15 @@ Note that album3 does not have a thumbnail.jpg -- in this case album3/image1.jpg
 
 The following is an example command line for ssgallery hosted at http://server/mywebgallery/:
 
-ssgallery.exe --source "C:\Users\luke\pictures\gallery1" --target "c:\inetpub\wwwroot\mywebgallery" --name "My Web Gallery" --thumbwidth 150 --thumbheight 150 --viewerwidth 1500 --viewerheight 1000 --baseurl "/mywebgallery/" --disqus "//your-disqus-url.disqus.com/embed.js"
+ssgallery.exe --source "C:\Users\luke\pictures\gallery1" --target "c:\inetpub\wwwroot\mywebgallery" --name "My Web Gallery" --thumbwidth 170 --thumbheight 130 --viewerwidth 1500 --viewerheight 1000 --baseurl "/mywebgallery/" --disqus "//your-disqus-url.disqus.com/embed.js"
 
 ### 3. Upload the target folder to your web host via FTP
 
 You're done!
+
+## known issues
+- if you run ssgallery multiple times and remove some images in between runs, you will end up with extra files in your destination folder. over time this could grow and start wasting disk space. a simple workaround is to completely delete the target folder and re-generate from scratch occasionally.
+- thumbnail sizes other than 170x130 are not currently supported. some changes to the CSS are required.
 
 ## todo
 - parallelization
@@ -75,10 +79,12 @@ You're done!
 - improve nav button ui in default template
   - hide button if there is no prev/next image
   - improve alignment
+- fix css to work with custom thumbnail sizes
 - download gallery/album links and zip files
 - disable disqus if no url provided
 - remove extraneous files during generation (..hmm, yes/no/all warning?)
 - support nested albums
 - password protected albums
+- gapless gallery/album layout
 - mono support
 - more themes
