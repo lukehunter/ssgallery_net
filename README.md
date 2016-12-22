@@ -77,7 +77,6 @@ You're done!
 -   "       "    css
 - clean up url building
 - improve nav button ui in default template
-  - hide button if there is no prev/next image
   - improve alignment
 - fix css to work with custom thumbnail sizes
 - download gallery/album links and zip files
