@@ -4,8 +4,7 @@
 
 
 
-DEPRECATED -- See new version at http://lukehunter.net/ssgallery
-
+DEPRECATED -- See new version at http://github.com/lukehunter/ssgallery
 
 
 
