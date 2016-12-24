@@ -1,5 +1,16 @@
 # Stupidly Simple Gallery
 ## Introduction
+
+
+
+
+DEPRECATED -- See new version at http://lukehunter.net/ssgallery
+
+
+
+
+
+
 Stupidly Simple Gallery (ssgallery) is a really simple static image gallery generator for .Net
 
 I created this software out of frustration with all the bloated and unnecessarily complicated gallery software out there. Would you believe that some gallery software actually waits until somebody requests a thumbnail to resize the source image? This strategy does not work well when using high resolution (10+ megapixel) source images. This software is designed to support as large of images as you like, pre-cache everything and be extremely simple (run it on a folder full of files, upload the result to your web host, and you're done).
@@ -23,7 +34,7 @@ An ssgallery theme consists of three templates:
   - Navigate forward by clicking on the image
   
 ## Example Gallery
-See http://lukehunter.net/nielsenphotos/
+See http://lukehunter.net/wallpapers/
 
 ## Installation
 
